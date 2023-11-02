@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Report.ReportFragment">
+    android:background="#000000"
+    tools:context=".ui.DailyReport.DayFragment">
 
     <com.anychart.AnyChartView
-        android:id="@+id/hourBarChart"
+        android:id="@+id/dayBarChart"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,11 +30,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="@string/hourly_report"
+        android:text="@string/daily_report"
         android:textColor="#1EB980"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

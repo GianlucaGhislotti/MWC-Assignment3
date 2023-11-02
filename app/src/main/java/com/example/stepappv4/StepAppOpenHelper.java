@@ -126,6 +126,36 @@ public class StepAppOpenHelper extends SQLiteOpenHelper {
         return map;
     }
 
+    public static Map<String, Integer> loadStepsByDays(Context context) {
+        // 1. Define a map to store the date and the total number of steps as key-value pairs
+        Map<String, Integer> map = new HashMap<>();
+
+        // 2. Get the readable database
+        StepAppOpenHelper databaseHelper = new StepAppOpenHelper(context);
+        SQLiteDatabase database = databaseHelper.getReadableDatabase();
+
+        // 3. Define the query to get the total number of steps per day
+        Cursor cursor = database.rawQuery("SELECT day, COUNT(*) FROM num_steps GROUP BY day ORDER BY day ASC", null);
+
+        // 4. Iterate over the cursor
+        if (cursor.moveToFirst()) {
+            do {
+                String dateKey = cursor.getString(0);
+                Integer stepsCount = cursor.getInt(1);
+
+                // Put the data into the map
+                map.put(dateKey, stepsCount);
+            } while (cursor.moveToNext());
+        }
+
+        // 5. Close the cursor and database
+        cursor.close();
+        database.close();
+
+        // 6. Return the map with dates and total number of steps per day
+        return map;
+    }
+
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
