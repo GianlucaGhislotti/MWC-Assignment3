@@ -69,10 +69,6 @@ public class DayFragment extends Fragment {
 
         Map<String, Integer> graph_map = new TreeMap<>();
 
-        for(int i =0; i<stepsByDays.size(); i++) {
-            graph_map.put(Integer.toString(i), 0);
-        }
-
         graph_map.putAll(stepsByDays);
 
         Cartesian cartesian = AnyChart.column();
