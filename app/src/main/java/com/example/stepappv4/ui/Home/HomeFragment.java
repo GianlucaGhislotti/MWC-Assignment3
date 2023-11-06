@@ -75,7 +75,6 @@ public class HomeFragment extends Fragment {
         SQLiteDatabase database = databaseOpenHelper.getWritableDatabase();
 
 
-
         toggleButtonGroup = (MaterialButtonToggleGroup) root.findViewById(R.id.toggleButtonGroup);
         toggleButtonGroup.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
             @Override
@@ -91,6 +90,17 @@ public class HomeFragment extends Fragment {
                     else
                     {
                         Toast.makeText(getContext(), R.string.acc_sensor_not_available, Toast.LENGTH_LONG).show();
+                    }
+
+                    if (stepDetectorSensor != null)
+                    {
+                        sensorListener = new StepCounterListener(stepCountsView);
+                        sensorManager.registerListener(sensorListener, stepDetectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+                        Toast.makeText(getContext(), R.string.start_text, Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(getContext(), R.string.step_detector_sensor_not_available, Toast.LENGTH_LONG).show();
                     }
 
                 }
@@ -121,6 +131,7 @@ class  StepCounterListener implements SensorEventListener{
     private double accMag = 0;
     private int lastAddedIndex = 1;
     int stepThreshold = 6;
+    public static int stepDetectorSensor = 0;
 
     TextView stepCountsView;
 
@@ -137,6 +148,11 @@ class  StepCounterListener implements SensorEventListener{
         this.stepCountsView = stepCountsView;
         this.database = databse;
         this.progressBar = progressBar;
+    }
+
+    public StepCounterListener(TextView stepCountsView)
+    {
+        this.stepCountsView = stepCountsView;
     }
 
 
@@ -188,6 +204,11 @@ class  StepCounterListener implements SensorEventListener{
 
                 break;
 
+            case Sensor.TYPE_STEP_DETECTOR:
+
+                countSteps(sensorEvent.values[0]);
+                break;
+
         }
 
 
@@ -231,6 +252,14 @@ class  StepCounterListener implements SensorEventListener{
 
             }
         }
+    }
+
+    private void countSteps(float step)
+    {
+        stepDetectorSensor += step;
+
+        Log.d("STEP_DETECTOR STEPS: ", String.valueOf(stepDetectorSensor));
+
     }
 
 
