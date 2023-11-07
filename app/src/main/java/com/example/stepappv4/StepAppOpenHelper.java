@@ -135,7 +135,7 @@ public class StepAppOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
 
         // 3. Define the query to get the total number of steps per day
-        Cursor cursor = database.rawQuery("SELECT day, COUNT(*) FROM num_steps GROUP BY day ORDER BY day ASC", null);
+        Cursor cursor = database.rawQuery("SELECT day, COUNT(*) FROM num_steps GROUP BY day ORDER BY day ASC LIMIT 7", null);
 
         // 4. Iterate over the cursor
         if (cursor.moveToFirst()) {

@@ -176,8 +176,6 @@ class  StepCounterListener implements SensorEventListener{
                 String sensorEventDate = jdf.format(timeInMillis);
 
 
-
-
                 if ((currentTimeInMilliSecond - lastSensorUpdate) > 1000)
                 {
                     lastSensorUpdate = currentTimeInMilliSecond;
@@ -185,9 +183,7 @@ class  StepCounterListener implements SensorEventListener{
                     Log.d("Acc. Event", "last sensor update at " + String.valueOf(sensorEventDate) + sensorRawValues);
                 }
 
-
                 accMag = Math.sqrt(x*x+y*y+z*z);
-
 
                 accSeries.add((int) accMag);
 

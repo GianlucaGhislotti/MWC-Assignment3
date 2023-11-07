@@ -63,7 +63,6 @@ public class ReportFragment extends Fragment {
         anyChartView.setBackgroundColor("#00000000");
         anyChartView.setChart(cartesian);
 
-
         return root;
     }
 
